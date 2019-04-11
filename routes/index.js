@@ -4,6 +4,12 @@ const jwt = require('jsonwebtoken')
 
 const authentication = require('../middlewares/authentication')
 
+// register a user
+router.post('/register', controller.userRegister)
+
+// login manual a user
+router.post('/login', controller.userLogin)
+
 // google sign in
 router.post('/google', controller.googleSignIn)
 

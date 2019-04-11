@@ -20,10 +20,6 @@ const ShareSchme = new schema({
     type: String,
     ref: 'Tags'
   }],
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
   UserId: {
     type: schema.Types.ObjectId,
     ref: 'Users'
@@ -32,6 +28,6 @@ const ShareSchme = new schema({
   timestamps:{}
 })  
 
-var Shares = mongoose.model('Shares', ArticleSchme)
+var Shares = mongoose.model('Shares', ShareSchme)
 
 module.exports = Shares
