@@ -1,3 +1,9 @@
 node_modules
 .env
+<<<<<<< 33a9fe6b52b89173b813d8c801f03b2a4cc30fce
 Picquishare-c22c4dc4d450.json
+=======
+package.json
+package-lock.json
+APIKey.json
+>>>>>>> Add Google Vision
