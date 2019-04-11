@@ -19,8 +19,8 @@ const multer = Multer({
 
 // add new post
 router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (req, res, next) => {
-    // const { title, tags, content, token } = req.body
-    // const decode = jwt.verify(token, process.env.JWT_SECRET)
+    const { title, tags, content, token } = req.body
+    const decode = jwt.verify(token, process.env.JWT_SECRET)
 
     let url = ''
     if (req.file && req.file.gcsUrl) {
