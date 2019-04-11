@@ -7,12 +7,12 @@ mongoose.connect(`mongodb://localhost/${dbconnect}`, { useNewUrlParser: true })
 
 const schema = mongoose.Schema
 
-const ArticleSchme = new schema({
-  title: {
+const ShareSchme = new schema({
+  caption: {
     type: String,
     required: true
   },
-  image: {
+  imageLink: {
     type: String,
     required: true
   },
@@ -24,12 +24,14 @@ const ArticleSchme = new schema({
     type: Date,
     default: Date.now
   },
-  author: {
+  UserId: {
     type: schema.Types.ObjectId,
     ref: 'Users'
   },
+}, {
+  timestamps:{}
 })  
 
-var Articles = mongoose.model('Arcticles', ArticleSchme)
+var Shares = mongoose.model('Shares', ArticleSchme)
 
-module.exports = Articles 
+module.exports = Shares
