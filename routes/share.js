@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken')
 const Share = require('../models/share')
 const Tags = require('../models/tags')
 
+const authentication = require('../middlewares/authentication')
+const controller = require('../controllers/share')
 
 const gcsMiddlewares = require('../middlewares/google-cloud-storage')
 const Multer = require('multer')
@@ -41,7 +43,6 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     })
         .then((data) => {
             console.log(data)
-            
         })
         .catch(function(e) {
             res.status(500).json({
@@ -50,6 +51,7 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
         })
 })
 
-// router.put('/:id', con)
+// getall picture
+router.get('/', authentication, controller.getAllSharePic)
 
 module.exports = router
