@@ -2,6 +2,7 @@ const Tag = require('../models/tags')
 
 module.exports = {
     checkTag(nameTag, id) {
+        console.log(id)
         Tag
             .findOne({
                 tags: nameTag
@@ -11,13 +12,18 @@ module.exports = {
                     return Tag
                         .create({
                             tags: nameTag,
-                            $push: {
-                                ShareId: id
-                            }
+                            ShareId: [id]
                         })
                 }
                 else {
-                    console.log('tag already exists')
+                    return Tag
+                    .findOneAndUpdate({
+                        tags: nameTag
+                    }, {
+                        $push: {
+                            ShareId: id
+                        }
+                    })
                 }
             })
             .then(function (newTag) {
