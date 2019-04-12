@@ -32,6 +32,8 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     } else {
         throw new Error ('Unable to upload');
     }
+    console.log(url)
+    console.log(tags)
 
     // Share.create({
     //     caption: caption,
@@ -48,5 +50,7 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     //         })
     //     })
 })
+
+// router.put('/:id', con)
 
 module.exports = router
