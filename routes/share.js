@@ -60,4 +60,8 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
 // getall picture
 router.get('/', authentication, controller.getAllSharePic)
 
+router.get('/tag', controller.recentTag)
+
+router.get('/tag/:id', controller.findByTag)
+
 module.exports = router

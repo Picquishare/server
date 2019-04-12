@@ -19,9 +19,7 @@ class ShareController {
 
   static findByTag (req, res) {
       Tag
-      .findOne({
-          tags: req.body.tags
-      })
+      .findById(req.params.id)
       .populate({
           path: 'ShareId',
           populate: {
