@@ -45,6 +45,7 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
         .then((data) => {
             if (data.tags.length > 0) {
                 data.tags.forEach(e => {
+                    console.log(data._id)
                     checkTag(e, data._id)
                 });
             }
@@ -60,8 +61,8 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
 // getall picture
 router.get('/', authentication, controller.getAllSharePic)
 
-router.get('/tag', controller.recentTag)
+// router.get('/tag', controller.recentTag)
 
-router.get('/tag/:id', controller.findByTag)
+router.get('/tag', controller.findByTag)
 
 module.exports = router
