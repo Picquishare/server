@@ -50,6 +50,7 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
                 });
             }
             console.log(data)
+            res.status(201).json(data)
         })
         .catch(function (e) {
             res.status(500).json({
