@@ -4,6 +4,7 @@ class ShareController {
   static getAllSharePic(req, res) {
     Share
       .find()
+      .populate('UserId')
       .then((data) => {
         res.status(200).json(data)
       })
