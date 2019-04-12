@@ -9,6 +9,7 @@ const Tags = require('../models/tags')
 
 const authentication = require('../middlewares/authentication')
 const controller = require('../controllers/share')
+const { checkTag } = require('../helpers/checkTagsExist')
 
 const gcsMiddlewares = require('../middlewares/google-cloud-storage')
 const Multer = require('multer')
@@ -32,7 +33,7 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     if (req.file && req.file.gcsUrl) {
         url = req.file.gcsUrl
     } else {
-        throw new Error ('Unable to upload');
+        throw new Error('Unable to upload');
     }
 
     Share.create({
@@ -42,9 +43,14 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
         imageLink: url
     })
         .then((data) => {
+            if (data.tags.length > 0) {
+                data.tags.forEach(e => {
+                    checkTag(e, data._id)
+                });
+            }
             console.log(data)
         })
-        .catch(function(e) {
+        .catch(function (e) {
             res.status(500).json({
                 message: e.message
             })
