@@ -13,7 +13,6 @@ const storage = new Storage({
 })
 
 exports.sendUploadToGCS = (req, res, next) => {
-  console.log(req.file)
   if (!req.file) {
     return next();
   }
