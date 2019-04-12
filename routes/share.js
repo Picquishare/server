@@ -5,7 +5,8 @@ ENV.config()
 const jwt = require('jsonwebtoken')
 
 const Share = require('../models/share')
-// const controller = require('../controllers/articleController')
+const Tags = require('../models/tags')
+
 
 const gcsMiddlewares = require('../middlewares/google-cloud-storage')
 const Multer = require('multer')
@@ -24,7 +25,6 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     const decode = jwt.decode(token, process.env.JWT_SECRET)
 
     const split = tags.split(',')
-    console.log(split)
 
     let url = ''
     if (req.file && req.file.gcsUrl) {
@@ -32,23 +32,22 @@ router.post('/upload', multer.single('image'), gcsMiddlewares.sendUploadToGCS, (
     } else {
         throw new Error ('Unable to upload');
     }
-    console.log(url)
-    console.log(tags)
 
-    // Share.create({
-    //     caption: caption,
-    //     UserId: decode.id,
-    //     tags: tags,
-    //     imageLink: url
-    // })
-    //     .then((data) => {
-    //         res.status(201).json(data)
-    //     })
-    //     .catch(function(e) {
-    //         res.status(500).json({
-    //             message: e.message
-    //         })
-    //     })
+    Share.create({
+        caption: caption,
+        UserId: decode.id,
+        tags: split,
+        imageLink: url
+    })
+        .then((data) => {
+            console.log(data)
+            
+        })
+        .catch(function(e) {
+            res.status(500).json({
+                message: e.message
+            })
+        })
 })
 
 // router.put('/:id', con)
